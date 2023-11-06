@@ -40,7 +40,7 @@ eksctl utils associate-iam-oidc-provider --cluster $cluster_name --approve
 3. EKS cluster (version 1.28)
 4. EBS CSI Addon
 
-## Example Pod Deployment to karpenter nodes 
+## Sample Pod Deployment to karpenter nodes 
 ```shell
 kubectl apply -f sample-pod.yaml
 kubectl scale deployment inflate --replicas 5
