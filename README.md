@@ -7,7 +7,7 @@
 ```shell
 ["subnet-123","subnet-321"]
 ```
-- security_groups - List of security group for Karpenter (you can use current worker node SG)
+- security_groups - List of security groups for Karpenter (you can use current worker node SG)
 ```shell
 ["sg-123"]
 ```
