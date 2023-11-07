@@ -30,7 +30,7 @@ aws iam list-open-id-connect-providers --output text | cut -f 2 | grep $oidc_id
 
 1. Kubeconfig path environment file
 ```shell
-export KUBE_CONFIG_PATH= ~/.kube/kubeconfig
+export KUBE_CONFIG_PATH=~/.kube/kubeconfig
 ```
 
 2. Create an IAM OIDC identity provider for your cluster with the following command.
