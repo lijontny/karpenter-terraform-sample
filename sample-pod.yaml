@@ -13,11 +13,13 @@ spec:
         app: inflate
     spec:
       terminationGracePeriodSeconds: 0
+      tolerations:
+        - key: "compute"
+          operator: "Equal"
+          value: "maxsize"
+          effect: "NoSchedule"
       nodeSelector:
         karpenter.sh/nodepool: default
       containers:
         - name: inflate
           image: public.ecr.aws/eks-distro/kubernetes/pause:3.7
-          resources:
-            requests:
-              cpu: 1

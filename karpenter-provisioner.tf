@@ -1,26 +1,3 @@
-# AWS_Auth Configuration
-resource "kubectl_manifest" "eks_aws_auth" {
-  yaml_body = <<-YAML
-    apiVersion: v1
-    kind: ConfigMap
-    metadata:
-      name: aws-auth
-      namespace: kube-system
-    data:
-      mapRoles: |
-        - groups:
-          - system:bootstrappers
-          - system:nodes
-          rolearn: ${var.eks_worker_node_role_arn}
-          username: system:node:{{EC2PrivateDNSName}}
-        - groups:
-          - system:bootstrappers
-          - system:nodes
-          rolearn: ${module.eks_blueprints_addons.karpenter.node_iam_role_arn}
-          username: system:node:{{EC2PrivateDNSName}}
-  YAML
-}
-
 # nodepool
 resource "kubectl_manifest" "karpenter_nodepool" {
   yaml_body = <<-YAML
@@ -34,21 +11,25 @@ resource "kubectl_manifest" "karpenter_nodepool" {
           requirements:
             - key: "karpenter.k8s.aws/instance-category"
               operator: In
-              values: ["c", "m"]
-            - key: "karpenter.k8s.aws/instance-cpu"
-              operator: In
-              values: ["8", "16", "32"]
-            - key: "karpenter.k8s.aws/instance-hypervisor"
-              operator: In
-              values: ["nitro"]
-            - key: "kubernetes.io/arch"
+              values: ["t", "c", "m"]
+            - key: kubernetes.io/arch
               operator: In
               values: ["amd64"]
             - key: "karpenter.sh/capacity-type"
               operator: In
               values: ["on-demand"]
+            - key: kubernetes.io/os
+              operator: In
+              values: ["linux"]
+            - key: "karpenter.k8s.aws/instance-family"
+              operator: In
+              values: ["m6"]
           nodeClassRef:
             name: default
+          taints:
+            - key: "compute"
+              value: "maxsize"
+              effect: "NoSchedule"
   YAML
   depends_on = [
     module.eks_blueprints_addons
