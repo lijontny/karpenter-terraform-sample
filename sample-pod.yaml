@@ -14,9 +14,9 @@ spec:
     spec:
       terminationGracePeriodSeconds: 0
       tolerations:
-        - key: "compute"
+        - key: "workload"
           operator: "Equal"
-          value: "maxsize"
+          value: "ai"
           effect: "NoSchedule"
       nodeSelector:
         karpenter.sh/nodepool: default
