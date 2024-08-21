@@ -3,14 +3,6 @@
 - accountID
 - certificate_ca - Certificate authority (it is available in AWS EKS console)
 - eks_worker_node_role_arn - Current Worker node ARN
-- subnet_ids - List of private subnets where you want to deploy karpenter nodes
-```shell
-["subnet-123","subnet-321"]
-```
-- security_groups - List of security groups for Karpenter (you can use current worker node SG)
-```shell
-["sg-123"]
-```
 - cluster_name - EKS cluster name
 - cluster_endpoint - EKS Cluster endpoint
 ```shell
